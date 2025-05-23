@@ -54,3 +54,37 @@ jobs:
             -f 'client_payload[checkRunId]=${{ steps.checkrun.outputs.checkId }}' \
             -f 'client_payload[sha]=${{ github.sha }}' \
             /repos/${{ github.repository }}/dispatches
+      - uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: DummyCheckSuccess
+          conclusion: success
+          output: |
+            {"summary":"All good"}
+      - uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: DummyCheckFail
+          conclusion: failure
+          output: |
+            {"summary":"some issues..."}
+      - uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: DummyCheckNeutral
+          conclusion: neutral
+          output: |
+            {"summary":"nothing I can say about this..."}
+      - uses: LouisBrunner/checks-action@v2.0.0
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: DummyCheckWarn
+          conclusion: success
+          output: |
+            {"summary":"Some warnings in README.md"}
+          annotations: |
+            [{"path":"README.md","annotation_level":"warning","title":"Spell Checker","message":"Check your spelling for 'banaas'.","raw_details":"Do you mean 'bananas' or 'banana'?","start_line":1,"end_line":2}]
