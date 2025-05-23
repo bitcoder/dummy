@@ -13,4 +13,7 @@ jobs:
       - name: deploy
         run: |
          echo "hello from the staging environment!"
+      - name: webserver
+        run: |
+           python3 -m http.server 8080
       
