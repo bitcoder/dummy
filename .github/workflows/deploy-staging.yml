@@ -1,0 +1,16 @@
+name: Deployment to Staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deployment:
+    runs-on: [self-hosted, macOS]
+    environment: staging
+    steps:
+      - name: deploy
+      - run: |
+         echo "hello from the staging environment!"
+      
