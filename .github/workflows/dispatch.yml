@@ -5,6 +5,7 @@ on:
 jobs:
   myEvent:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       ####################################################
       # Update the status to show that the queued message
