@@ -11,6 +11,6 @@ jobs:
     environment: staging
     steps:
       - name: deploy
-      - run: |
+        run: |
          echo "hello from the staging environment!"
       
