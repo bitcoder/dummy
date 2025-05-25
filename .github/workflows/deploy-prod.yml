@@ -1,0 +1,31 @@
+name: Deployment to Prod
+
+on:
+  workflow_dispatch:
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+jobs:
+  deployment:
+    runs-on: [self-hosted, macOS]
+    environment: production
+    steps:
+      -
+        name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Pull docker image
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ${{ env.REGISTRY }} -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker pull bitcoder/dummy:main
+      - name: Stop container
+        run: | 
+          docker stop dummy
+          docker rm dummy
+      - name: Start updated container
+        run: |
+          docker run -d --name dummy -p 18080:8080 ghcr.io/bitcoder/dummy:main
