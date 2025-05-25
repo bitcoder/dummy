@@ -24,8 +24,8 @@ jobs:
           docker pull bitcoder/dummy:main
       - name: Stop container
         run: | 
-          docker stop dummy
-          docker rm dummy
+          docker stop dummy  || /usr/bin/true 
+          docker rm dummy    || /usr/bin/true 
       - name: Start updated container
         run: |
           docker run -d --name dummy -p 18080:8080 ghcr.io/bitcoder/dummy:main
