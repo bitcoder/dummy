@@ -18,7 +18,13 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v4
-      - name: build package
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          cache: maven
+      - name: build final package
         run: |
           mvn package
       -
