@@ -28,4 +28,4 @@ jobs:
           docker rm dummy    || /usr/bin/true 
       - name: Start updated container
         run: |
-          docker run -d --name dummy -p 18080:8080 ghcr.io/bitcoder/dummy:main
+          docker run -d --name dummy -p 18080:8080 bitcoder/dummy:main
